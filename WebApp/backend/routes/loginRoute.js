@@ -1,3 +1,4 @@
+
 const express = require("express");
 const User = require("../models/loginModels");
 const bcrypt = require("bcryptjs");
@@ -10,8 +11,8 @@ const router = express.Router();
 
 // Utility function to generate JWT token
 const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: "30d", // Token expiration time
+  return jwt.sign({ id }, '200212803989', {
+    expiresIn: "30d",
   });
 };
 
