@@ -41,7 +41,13 @@ function LoginPage() {
       if (response.status === 200) {
         localStorage.setItem("token", response.data.token); // Store token in localStorage or cookie
         alert("Login successful!");
-        navigate("/dashboard"); // Navigate to the dashboard or any page you want after login
+        if (email === "sithma2002@gmail.com") {
+          navigate("/dashboard/Bookadmin");
+        }else{
+          navigate("/dashboard");
+        }
+
+         // Navigate to the dashboard or any page you want after login
       } else {
         setError(response.data.message || "Login failed");
       }
@@ -52,7 +58,11 @@ function LoginPage() {
   };
 
   return (
+    <div>
+    <div className="backimage"></div>
+    
     <div className="form-container">
+    
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         {error && <div className="error">{error}</div>} {/* Display error message */}
@@ -85,11 +95,11 @@ function LoginPage() {
           {loading ? "Logging in..." : "Login"}
         </button>
 
-        <p>
-          Don't have an account? <a href="/register">Register</a>
-        </p>
+        
       </form>
     </div>
+    </div>
+    
   );
 }
 
