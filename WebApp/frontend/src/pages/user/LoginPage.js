@@ -13,41 +13,37 @@ function LoginPage() {
 
   const navigate = useNavigate(); // For navigating after successful login
 
-  // Handle form field changes
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { email, password } = formData;
 
-    // Simple client-side validation
     if (!email || !password) {
       setError("Please fill in both email and password");
       return;
     }
-    setError(""); // Clear any previous error messages
+    setError("");
     setLoading(true);
 
     try {
-      // Make the POST request to the backend login route
-      const response = await axios.post("http://localhost:8070/api/user/login", formData);
+      const response = await axios.post(
+        "http://localhost:8070/api/user/login",
+        formData
+      );
 
       setLoading(false);
 
-      // If login is successful, store the token and navigate
       if (response.status === 200) {
-        localStorage.setItem("token", response.data.token); // Store token in localStorage or cookie
+        localStorage.setItem("token", response.data.token);
         alert("Login successful!");
         if (email === "sithma2002@gmail.com") {
-          navigate("/dashboard/Bookadmin");
-        }else{
           navigate("/dashboard");
+        } else {
+          navigate("/login");
         }
-
-         // Navigate to the dashboard or any page you want after login
       } else {
         setError(response.data.message || "Login failed");
       }
@@ -58,48 +54,40 @@ function LoginPage() {
   };
 
   return (
-    <div>
-    <div className="backimage"></div>
-    
-    <div className="form-container">
-    
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        {error && <div className="error">{error}</div>} {/* Display error message */}
-
-        <div className="input-group">
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="input-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <button type="submit" disabled={loading}>
-          {loading ? "Logging in..." : "Login"}
-        </button>
-
-        
-      </form>
+    <div className="login-page">
+      <div className="backimage"></div>
+      <div className="form-container">
+        <h2>Login</h2>
+        <form onSubmit={handleSubmit}>
+          {error && <div className="error">{error}</div>}
+          <div className="input-group">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="input-group">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <button type="submit" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
+          </button>
+        </form>
+      </div>
     </div>
-    </div>
-    
   );
 }
 

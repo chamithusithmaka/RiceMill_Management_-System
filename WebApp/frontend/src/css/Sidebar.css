@@ -1,0 +1,88 @@
+/* Sidebar.css */
+.sidebar-container {
+    display: flex;
+    height: 100vh;
+    background-color: #f4f4f4; /* Background for the container */
+  }
+  
+  .sidebar {
+    background-color: #8BB174; /* Match the rice mill theme */
+    color: white;
+    width: 250px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+  }
+  
+  .sidebar.collapsed {
+    width: 80px; /* Collapsed width */
+  }
+  
+  .sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px;
+    background-color: #6f9e54; /* Slightly darker green for the header */
+    border-bottom: 1px solid #6c8b48;
+  }
+  
+  .sidebar-title {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .toggle-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    outline: none;
+    margin-left: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .menu-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+  
+  .menu-item:hover {
+    background-color: #7aa860; /* Hover effect */
+  }
+  
+  .menu-item span {
+    margin-left: 10px;
+    font-size: 16px;
+  }
+  
+  .sidebar-menu a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .menu-item svg {
+    font-size: 20px;
+  }
+  
+  .sidebar.collapsed .menu-item span {
+    display: none; /* Hide text when collapsed */
+  }
+  
+  .sidebar.collapsed .menu-item {
+    justify-content: center; /* Center icons when collapsed */
+  }
+  
+  .sidebar.collapsed .sidebar-title {
+    display: none;
+  }
+  

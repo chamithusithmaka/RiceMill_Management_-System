@@ -1,0 +1,17 @@
+/* Dashboard.css */
+.dashboard-container {
+  display: flex; /* Establish a flex container */
+  height: 100vh; /* Full height of the viewport */
+  margin: 0;
+}
+
+.sidebar-container {
+  flex: 0 0 250px; /* Fixed width for the sidebar */
+  height: 100%; /* Full height of the viewport */
+}
+
+.main-content {
+  flex: 1; /* Take up remaining space */
+  padding: 20px; /* Add padding for main content */
+  background-color: #f4f4f4; /* Optional: Background color */
+}
