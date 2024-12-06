@@ -32,10 +32,10 @@ const Sidebar = () => {
               {!isCollapsed && <span>Seed Seller Management</span>}
             </li>
           </NavLink>
-          <NavLink to="/Orders" activeClassName="active-link">
+          <NavLink to="/employee" activeClassName="active-link">
             <li className="menu-item">
               <FaClipboardList />
-              {!isCollapsed && <span>Orders</span>}
+              {!isCollapsed && <span>Employee Management</span>}
             </li>
           </NavLink>
           <NavLink to="/Settings" activeClassName="active-link">

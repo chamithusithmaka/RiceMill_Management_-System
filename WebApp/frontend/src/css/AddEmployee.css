@@ -1,0 +1,10 @@
+.AddEmployee-container{
+    display: flex;
+    min-height: 100vh;
+}
+
+.AddEmployee-content{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}

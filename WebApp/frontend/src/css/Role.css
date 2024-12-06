@@ -1,0 +1,112 @@
+/* Role.css */
+.role-management-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f3f3f3;
+}
+
+.role-management-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.role-management-main-content {
+    flex: 1;
+    margin-left: 20px; /* Adjust this based on your sidebar width */
+    margin-top: 20px;  /* Adjust based on the header height */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+.role-content-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.role-form-section {
+    flex: 1; /* Form section takes up 50% of the space */
+    margin-right: 20px; /* Space between form and list */
+}
+
+.role-display-section {
+    flex: 1; /* Display section takes up 50% of the space */
+    margin-left: 20px;
+}
+
+.role-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 600px;
+    margin: 20px 0;
+    background-color: #f9f9f9; /* Soft background color */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Soft shadow for form */
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc; /* Light gray border */
+    font-size: 14px;
+}
+
+.btn-add-role {
+    padding: 10px 20px;
+    background-color: #3e5b3e; /* Deep green */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+}
+
+.btn-add-role:hover {
+    background-color: #2f4e2f; /* Slightly darker green */
+}
+
+.role-list {
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.role-item {
+    background-color: #f4f4f4; /* Very light gray for list items */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #e0e0e0; /* Lighter gray border */
+}
+
+.message {
+    color: #28a745; /* Green color for success messages */
+    margin-top: 10px;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #3e5b3e; /* Deep green for title */
+}
+.btn-edit-role{
+    margin-left: 20px;
+    width: 80px;
+}

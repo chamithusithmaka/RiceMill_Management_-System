@@ -1,0 +1,44 @@
+/* Employee Page Layout */
+.employee-container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Sidebar styling */
+.employee-container > .Sidebar {
+    width: 250px; /* Adjust width of the sidebar */
+    background-color: #f4f4f4; /* Background color for sidebar */
+    height: 100%; /* Full height */
+    position: fixed; /* Fix it to the left */
+    top: 0;
+    left: 0;
+}
+
+/* Content area (Header + Main Content) */
+.employee-content {
+    
+    width: calc(100% - 250px); /* Adjust for Sidebar */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Header styling */
+.employee-content > .Header {
+    background-color: #007bff;
+    color: white;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Main content styling */
+.employee-main-content {
+    
+    flex: 1; /* Take up remaining space */
+    overflow-y: auto; /* Add scrolling if content overflows */
+}

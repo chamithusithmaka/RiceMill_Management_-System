@@ -28,6 +28,26 @@ router.post('/add', async (req, res) => {
     }
 });
 
+router.get('/transactions/:sellerId', async (req, res) => {
+    try {
+        // Extract sellerId from URL params
+        const { sellerId } = req.params;
+
+        // Find the seed seller by ID
+        const seedSeller = await SeedSeller.findById(sellerId);
+
+        if (!seedSeller) {
+            return res.status(404).json({ message: 'Seed seller not found.' });
+        }
+
+        // Send the transaction history back as a response
+        res.status(200).json({ transactions: seedSeller.transactionHistory });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+
 // Get all seed sellers
 router.get('/', async (req, res) => {
     try {

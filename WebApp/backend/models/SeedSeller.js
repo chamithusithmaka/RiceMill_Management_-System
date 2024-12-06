@@ -11,4 +11,6 @@ const SeedSellerSchema = new mongoose.Schema(
   { timestamps: true } // Pass timestamps as an option to the schema
 );
 
+
+
 module.exports = mongoose.model('SeedSeller', SeedSellerSchema);

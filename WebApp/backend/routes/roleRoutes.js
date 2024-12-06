@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const Role = require('../models/Role');
 
-// Add a new role
 router.post('/add', async (req, res) => {
     try {
         const { name, description } = req.body;
@@ -17,6 +16,7 @@ router.post('/add', async (req, res) => {
         await newRole.save();
         res.status(201).json({ message: 'Role added successfully.', newRole });
     } catch (error) {
+        console.error('Error adding role:', error); // Log the error
         res.status(500).json({ error: error.message });
     }
 });
