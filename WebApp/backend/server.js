@@ -14,6 +14,8 @@ const supplyRoutes = require('./routes/supplyRoutes');
 const loginRoute = require('./routes/loginRoute');
 const userRoute = require('./routes/userRoutes');
 const roleRoutes = require('./routes/roleRoutes');
+const Emprole = require('./routes/EmproleRoute'); // Adjust path as needed
+
 
 // Initialize the app
 const app = express();
@@ -40,6 +42,7 @@ app.use('/api/supplies', supplyRoutes);
 app.use("/api/user", loginRoute);
 app.use("/userRequests", userRoute);
 app.use("/roles",roleRoutes);
+app.use("/emproles",Emprole);
 
 // Basic route to test server
 app.get('/', (req, res) => {

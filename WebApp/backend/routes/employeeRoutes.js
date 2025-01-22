@@ -2,140 +2,178 @@ const express = require('express');
 const router = express.Router();
 const Employee = require('../models/Employee');
 
-// Route: Create a new employee
-router.post('/employees', async (req, res) => {
-    const { name, role, contactNumber, address, salaryType, salaryAmount } = req.body;
-
+// Route to add a new employee
+router.post('/add-employee', async (req, res) => {
     try {
+        const {
+            name,
+            role,
+            contactNumbers,
+            address,
+            dateOfHire,
+            salaryType,
+            salaryAmount
+        } = req.body;
+
+        // Basic validation
+        if (!name || !role || !salaryType || !salaryAmount) {
+            return res.status(400).json({ message: "Please provide all required fields: name, role, salaryType, and salaryAmount." });
+        }
+
+        // Create a new Employee instance
         const newEmployee = new Employee({
             name,
             role,
-            contactNumber,
-            address,
+            contactNumbers, // Optional, can be empty or an array
+            address, // Optional
+            dateOfHire: dateOfHire || new Date(), // Default to current date if not provided
             salaryType,
-            salaryAmount,
+            salaryAmount
         });
 
-        await newEmployee.save();
-        res.status(201).json({ message: 'Employee created successfully', employee: newEmployee });
+        // Save the new employee to the database
+        const savedEmployee = await newEmployee.save();
+
+        res.status(201).json({ message: "Employee registered successfully", employee: savedEmployee });
     } catch (error) {
-        res.status(500).json({ message: 'Error creating employee', error: error.message });
+        console.error(error);
+        res.status(500).json({ message: "An error occurred while registering the employee", error: error.message });
     }
 });
 
-// Route: Get all employees
+// Route to get all employees
 router.get('/employees', async (req, res) => {
     try {
-        const employees = await Employee.find().populate('role'); // Populate the role reference
+        const employees = await Employee.find().populate('role'); // Populating 'role' reference
         res.status(200).json(employees);
-    } catch (error) {
-        res.status(500).json({ message: 'Error fetching employees', error: error.message });
+    } catch (err) {
+        res.status(500).json({ message: 'Error fetching employees', error: err });
     }
 });
 
-// Route: Get a single employee by ID
-router.get('/employees/:id', async (req, res) => {
+// Route to get a specific employee by ID
+router.get('/employee/:id', async (req, res) => {
     try {
         const employee = await Employee.findById(req.params.id).populate('role');
         if (!employee) {
             return res.status(404).json({ message: 'Employee not found' });
         }
         res.status(200).json(employee);
-    } catch (error) {
-        res.status(500).json({ message: 'Error fetching employee', error: error.message });
+    } catch (err) {
+        res.status(500).json({ message: 'Error fetching employee', error: err });
     }
 });
 
-// Route: Update an employee by ID
-router.put('/employees/:id', async (req, res) => {
-    const { name, role, contactNumber, address, salaryType, salaryAmount } = req.body;
-
-    try {
-        const updatedEmployee = await Employee.findByIdAndUpdate(
-            req.params.id,
-            { name, role, contactNumber, address, salaryType, salaryAmount },
-            { new: true }
-        );
-
-        if (!updatedEmployee) {
-            return res.status(404).json({ message: 'Employee not found' });
-        }
-
-        res.status(200).json({ message: 'Employee updated successfully', employee: updatedEmployee });
-    } catch (error) {
-        res.status(500).json({ message: 'Error updating employee', error: error.message });
-    }
-});
-
-// Route: Delete an employee by ID
-router.delete('/employees/:id', async (req, res) => {
+// Route to delete an employee by ID (already added)
+router.delete('/employee/:id', async (req, res) => {
     try {
         const deletedEmployee = await Employee.findByIdAndDelete(req.params.id);
+        
         if (!deletedEmployee) {
             return res.status(404).json({ message: 'Employee not found' });
         }
-
-        res.status(200).json({ message: 'Employee deleted successfully' });
-    } catch (error) {
-        res.status(500).json({ message: 'Error deleting employee', error: error.message });
+        
+        res.status(200).json({ message: 'Employee deleted' });
+    } catch (err) {
+        res.status(500).json({ message: 'Error deleting employee', error: err });
     }
 });
 
-// Route: Mark attendance for an employee
-router.post('/employees/:id/attendance', async (req, res) => {
-    const { date, status } = req.body;
-
+// Route to update an existing employee by ID (already added)
+router.put('/employee/:id', async (req, res) => {
     try {
-        const employee = await Employee.findById(req.params.id);
-        if (!employee) {
+        const updatedEmployee = await Employee.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        
+        if (!updatedEmployee) {
             return res.status(404).json({ message: 'Employee not found' });
+        }
+        
+        res.status(200).json({ message: 'Employee updated', employee: updatedEmployee });
+    } catch (err) {
+        res.status(500).json({ message: 'Error updating employee', error: err });
+    }
+});
+
+//attendance 
+// Get today's attendance
+router.get("/employees/attendance/today", async (req, res) => {
+    try {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const employeesWithAttendance = await Employee.find({
+            "attendanceRecord.date": today,
+            "attendanceRecord.status": "Present",
+        });
+
+        res.json(employeesWithAttendance);
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching today's attendance." });
+    }
+});
+
+// Mark attendance
+router.post("/employees/attendance/mark", async (req, res) => {
+    const { employeeId } = req.body;
+    try {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const employee = await Employee.findById(employeeId);
+
+        if (!employee) {
+            return res.status(404).json({ message: "Employee not found." });
+        }
+
+        // Check if already marked present
+        const alreadyMarked = employee.attendanceRecord.some(
+            (record) => record.date.getTime() === today.getTime()
+        );
+
+        if (alreadyMarked) {
+            return res.status(400).json({ message: "Attendance already marked for today." });
         }
 
         // Add attendance record
-        employee.attendanceRecord.push({ date: new Date(date), status });
+        employee.attendanceRecord.push({ date: today, status: "Present" });
         await employee.save();
 
-        res.status(200).json({ message: 'Attendance marked successfully', attendance: employee.attendanceRecord });
+        res.json({ message: "Attendance marked successfully." });
     } catch (error) {
-        res.status(500).json({ message: 'Error marking attendance', error: error.message });
+        res.status(500).json({ message: "Error marking attendance." });
     }
 });
 
-// Route: Get attendance for an employee
-router.get('/employees/:id/attendance', async (req, res) => {
+// Get employees who have not been marked present today
+router.get('/employees/unmarked', async (req, res) => {
     try {
-        const employee = await Employee.findById(req.params.id);
-        if (!employee) {
-            return res.status(404).json({ message: 'Employee not found' });
-        }
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Normalize time to midnight
 
-        res.status(200).json({ attendance: employee.attendanceRecord });
+        const unmarkedEmployees = await Employee.find({
+            $or: [
+                { attendanceRecord: { $exists: false } }, // No attendance record
+                {
+                    attendanceRecord: {
+                        $not: {
+                            $elemMatch: {
+                                date: today,
+                                status: 'Present',
+                            },
+                        },
+                    },
+                },
+            ],
+        });
+
+        res.status(200).json(unmarkedEmployees);
     } catch (error) {
-        res.status(500).json({ message: 'Error fetching attendance', error: error.message });
+        console.error('Error fetching unmarked employees:', error);
+        res.status(500).json({ message: 'Failed to fetch unmarked employees.' });
     }
 });
 
-// Route: Calculate total salary for an employee based on attendance (if daily salary)
-router.get('/employees/:id/salary', async (req, res) => {
-    try {
-        const employee = await Employee.findById(req.params.id);
-        if (!employee) {
-            return res.status(404).json({ message: 'Employee not found' });
-        }
 
-        let totalSalary = 0;
-        if (employee.salaryType === 'Daily') {
-            // Count the number of "Present" days
-            const presentDays = employee.attendanceRecord.filter(record => record.status === 'Present').length;
-            totalSalary = presentDays * employee.salaryAmount;
-        } else if (employee.salaryType === 'Monthly') {
-            totalSalary = employee.salaryAmount; // Fixed monthly salary
-        }
 
-        res.status(200).json({ totalSalary });
-    } catch (error) {
-        res.status(500).json({ message: 'Error calculating salary', error: error.message });
-    }
-});
 
 module.exports = router;

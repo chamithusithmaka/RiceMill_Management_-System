@@ -1,10 +1,127 @@
-.AddEmployee-container{
+.AddEmployee-container {
     display: flex;
+    background-color: #f3f3f3;
     min-height: 100vh;
-}
-
-.AddEmployee-content{
+  }
+  
+  .AddEmployee-content {
     flex: 1;
     display: flex;
     flex-direction: column;
-}
+  }
+  
+  .AddEmployee-main-content {
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    border-radius: 8px;
+  }
+  
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2c6e49;
+    margin-bottom: 20px;
+  }
+  
+  .AddEmployee-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  
+  .form-section {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .form-group input,
+  .form-group select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  .contact-number-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .contact-number-group input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+    width: 100%;
+  }
+  
+  .remove-button {
+    color: #e74c3c;
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
+  
+  .add-contact-button {
+    color: #f4f8f5; /* Green color */
+    
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 14px; /* Set font size */
+    font-weight: bold; /* Make the text bold */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+  }
+  
+  /* Hover effect */
+  .add-contact-button:hover {
+    color: #1e7e34; /* Darker green color */
+    text-decoration: none; /* Remove underline on hover */
+    transform: scale(1.05); /* Slightly enlarge the button */
+  }
+  
+  /* Focus effect */
+  .add-contact-button:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 5px rgba(40, 167, 69, 0.6); /* Add subtle green glow */
+  }
+  
+  /* Active effect */
+  .add-contact-button:active {
+    color: #155d27; /* Even darker green for active state */
+    transform: scale(0.98); /* Slightly shrink when clicked */
+  }
+  
+  .submit-button {
+    grid-column: span 2;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .submit-button button {
+    padding: 10px 20px;
+    background-color: #2c6e49;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-button button:hover {
+    background-color: #1c4c34;
+  }
+  

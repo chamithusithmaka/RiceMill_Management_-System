@@ -2,43 +2,211 @@
 .employee-container {
     display: flex;
     height: 100vh;
-}
-
-/* Sidebar styling */
-.employee-container > .Sidebar {
-    width: 250px; /* Adjust width of the sidebar */
-    background-color: #f4f4f4; /* Background color for sidebar */
-    height: 100%; /* Full height */
-    position: fixed; /* Fix it to the left */
-    top: 0;
-    left: 0;
+    background-color: #f3f3f3; /* Light grey background for the overall page */
 }
 
 /* Content area (Header + Main Content) */
 .employee-content {
-    
     width: calc(100% - 250px); /* Adjust for Sidebar */
     display: flex;
     flex-direction: column;
     height: 100%;
-}
-
-/* Header styling */
-.employee-content > .Header {
-    background-color: #007bff;
-    color: white;
-    padding: 15px;
-    font-size: 18px;
-    font-weight: bold;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    border-bottom: 1px solid #ddd;
+    
 }
 
 /* Main content styling */
 .employee-main-content {
-    
-    flex: 1; /* Take up remaining space */
-    overflow-y: auto; /* Add scrolling if content overflows */
+    flex: 1;
+    margin-left: 20px; /* Adjust this based on your sidebar width */
+    margin-top: 20px;  /* Adjust based on the header height */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    margin-right: 20px;
+    margin-bottom: 20px;
 }
+
+/* Table styling */
+.employee-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fafafa; /* Light grey background for table */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+}
+
+/* Table headers */
+.employee-table th, .employee-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+    font-size: 14px;
+}
+
+.employee-table th {
+    background-color: #c4a59b; /* Beige for table header */
+    color: #4b3621; /* Dark brown text */
+    font-weight: bold;
+}
+
+/* Table rows */
+.employee-table tr:nth-child(even) {
+    background-color: #f5f5f5; /* Light grey for even rows */
+}
+
+.employee-table tr:hover {
+    background-color: #e0d8d1; /* Light brown on hover for rows */
+}
+
+/* Action Buttons */
+.view-button, .update-button, .delete-button {
+    padding: 6px 12px;
+    margin-right: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+/* View Button */
+.view-button {
+    background-color: #2e8b57; /* Green for view button */
+    color: white;
+    text-decoration: none;
+}
+
+/* Update Button */
+.update-button {
+    background-color: #f4a300; /* Yellow for update button */
+    color: white;
+    text-decoration: none;
+}
+
+/* Delete Button */
+.delete-button {
+    background-color: #d9534f; /* Red for delete button */
+    color: white;
+    text-decoration: none;
+}
+
+/* Button hover effects */
+.view-button:hover, .update-button:hover, .delete-button:hover {
+    opacity: 0.8;
+}
+
+.view-button:focus, .update-button:focus, .delete-button:focus {
+    outline: none;
+}
+
+/* Button text color on hover */
+.view-button:hover, .update-button:hover, .delete-button:hover {
+    text-decoration: none;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Modal Box */
+.modal-box {
+    background: #f8f4e3; /* Soft earthy tone */
+    width: 500px;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Modal Title */
+.modal-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #4d4b47; /* Dark brown tone */
+    margin-bottom: 20px;
+}
+
+/* Form Group */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 1em;
+    color: #4d4b47;
+    margin-bottom: 5px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Modal Actions */
+.modal-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.btn-save {
+    background: #8bc34a; /* Green for save */
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.btn-save:hover {
+    background: #7cb342;
+}
+
+.btn-cancel {
+    background: #f44336; /* Red for cancel */
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.btn-cancel:hover {
+    background: #e53935;
+}
+

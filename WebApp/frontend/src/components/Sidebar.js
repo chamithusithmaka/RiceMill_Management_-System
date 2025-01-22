@@ -20,7 +20,7 @@ const Sidebar = () => {
           </button>
         </div>
         <ul className="sidebar-menu">
-          <NavLink to="/" exact activeClassName="active-link">
+          <NavLink to="/dashboard" exact activeClassName="active-link">
             <li className="menu-item">
               <FaHome />
               {!isCollapsed && <span>Dashboard</span>}
@@ -38,6 +38,14 @@ const Sidebar = () => {
               {!isCollapsed && <span>Employee Management</span>}
             </li>
           </NavLink>
+
+          <NavLink to="/Supply" activeClassName="active-link">
+            <li className="menu-item">
+              <FaClipboardList />
+              {!isCollapsed && <span>Supply Management</span>}
+            </li>
+          </NavLink>
+
           <NavLink to="/Settings" activeClassName="active-link">
             <li className="menu-item">
               <FaCog />

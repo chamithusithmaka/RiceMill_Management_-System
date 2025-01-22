@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
-const roleSchema = new mongoose.Schema({
+const emprole = new mongoose.Schema({
     name: { type: String, required: true, unique: true }, // Ensure 'name' is correct
     description: { type: String, required: true }
 });
 
-const Role = mongoose.model('Role', roleSchema);
-module.exports = Role;
+const Emprole = mongoose.model('Emprole', emprole);
+module.exports = Emprole;
