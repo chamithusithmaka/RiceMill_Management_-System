@@ -12,6 +12,11 @@ import Attendance from './components/Employee/Attendance';
 import EmployeeSalary from './components/Employee/employeeSalary';
 import Supply from './pages/user/Supply';
 import SeedType from './components/Supply/SeedTypes';
+import AllSupply from './components/Supply/AllSupplies';
+import AddSupply from './components/Supply/AddSupply';
+import AddSeedSeller from './components/SeedSeller/AddSeedSeller';
+import AllSellers from './components/SeedSeller/AllSellers';
+import Transaction from './components/SeedSeller/Transaction';
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
@@ -36,7 +41,12 @@ function App() {
         <Route path="/attendance" element={<Attendance />} />
         <Route path="/salary" element={<EmployeeSalary />} />
         <Route path="/supply" element={<Supply />} />
-        <Route path="seedType" element={<SeedType />} />
+        <Route path="/seedType" element={<SeedType />} />
+        <Route path="/addsupply" element={<AddSupply />} />
+        <Route path="/allsupplies" element={<AllSupply />} />
+        <Route path="/addseller" element={<AddSeedSeller />} />
+        <Route path="/allsellers" element={<AllSellers />} />
+        <Route path="/transaction" element={<Transaction />} />
         </Routes>
         
       </div>

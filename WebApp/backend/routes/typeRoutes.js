@@ -2,79 +2,69 @@ const express = require('express');
 const router = express.Router();
 const Type = require('../models/type');
 
-// Add a new type
-router.post('/add', async (req, res) => {
+/**
+ * Route: Add a new type
+ * Method: POST
+ * Endpoint: /types
+ */
+router.post('/types', async (req, res) => {
     try {
-        const { typeName, description } = req.body;
+        const { typeName } = req.body;
 
-        // Check if the type already exists
-        const existingType = await Type.findOne({ typeName });
-        if (existingType) {
-            return res.status(400).json({ message: 'Type already exists.' });
+        // Validate input
+        if (!typeName) {
+            return res.status(400).json({ message: "Type name is required" });
         }
 
-        const newType = new Type({ typeName, description });
-        await newType.save();
-        res.status(201).json({ message: 'Type added successfully.', newType });
+        // Check for duplicates
+        const existingType = await Type.findOne({ typeName });
+        if (existingType) {
+            return res.status(409).json({ message: "Type already exists" });
+        }
+
+        // Create and save the type
+        const newType = new Type({ typeName });
+        const savedType = await newType.save();
+
+        res.status(201).json({ message: "Type added successfully", type: savedType });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        console.error(error);
+        res.status(500).json({ message: "Failed to add type", error: error.message });
     }
 });
 
-// Get all types
-router.get('/', async (req, res) => {
+/**
+ * Route: View all types
+ * Method: GET
+ * Endpoint: /types
+ */
+router.get('/types', async (req, res) => {
     try {
         const types = await Type.find();
         res.status(200).json(types);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        console.error(error);
+        res.status(500).json({ message: "Failed to fetch types", error: error.message });
     }
 });
 
-// Get a type by ID
-router.get('/:id', async (req, res) => {
-    try {
-        const type = await Type.findById(req.params.id);
-        if (!type) {
-            return res.status(404).json({ message: 'Type not found.' });
-        }
-        res.status(200).json(type);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
-
-// Update a type
-router.put('/:id', async (req, res) => {
-    try {
-        const { typeName, description } = req.body;
-
-        const updatedType = await Type.findByIdAndUpdate(
-            req.params.id,
-            { typeName, description },
-            { new: true }
-        );
-
-        if (!updatedType) {
-            return res.status(404).json({ message: 'Type not found.' });
-        }
-
-        res.status(200).json({ message: 'Type updated successfully.', updatedType });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
-
-// Delete a type
-router.delete('/:id', async (req, res) => {
+/**
+ * Route: Delete a type by ID
+ * Method: DELETE
+ * Endpoint: /types/:id
+ */
+router.delete('/types/:id', async (req, res) => {
     try {
         const deletedType = await Type.findByIdAndDelete(req.params.id);
+
         if (!deletedType) {
-            return res.status(404).json({ message: 'Type not found.' });
+            return res.status(404).json({ message: "Type not found" });
         }
-        res.status(200).json({ message: 'Type deleted successfully.', deletedType });
+
+        res.status(200).json({ message: "Type deleted successfully" });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        console.error(error);
+        res.status(500).json({ message: "Failed to delete type", error: error.message });
     }
 });
 

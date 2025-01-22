@@ -1,0 +1,27 @@
+/* Employee Page Layout */
+.AddSupply-container {
+    display: flex;
+    height: 100vh;
+    background-color: #f3f3f3; /* Light grey background for the overall page */
+}
+
+/* Content area (Header + Main Content) */
+.AddSupply-content {
+    width: calc(100% - 250px); /* Adjust for Sidebar */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    
+}
+
+/* Main content styling */
+.AddSupply-main-content {
+    flex: 1;
+    margin-left: 20px; /* Adjust this based on your sidebar width */
+    margin-top: 20px;  /* Adjust based on the header height */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}

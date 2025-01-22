@@ -35,10 +35,10 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
 // Use routes
 app.use('/api/seed-sellers', seedSellerRoutes);
 app.use('/api/employees', employeeRoutes);
-app.use('/api/types', typeRoutes);
+app.use(typeRoutes);
 app.use('/api/inventory', inventoryRoutes);
 app.use('/api/productions', productionRoutes);
-app.use('/api/supplies', supplyRoutes);
+app.use(supplyRoutes);
 app.use("/api/user", loginRoute);
 app.use("/userRequests", userRoute);
 app.use("/roles",roleRoutes);

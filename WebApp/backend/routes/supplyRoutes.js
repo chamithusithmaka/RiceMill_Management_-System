@@ -3,55 +3,65 @@ const router = express.Router();
 const Supply = require('../models/Supply');
 const InventoryItem = require('../models/InventoryItem');
 
-// Add new supply
-router.post('/add', async (req, res) => {
+// Route to add a new supply
+router.post("/add-supply", async (req, res) => {
     try {
-        const { supplierId, seedType, quantity, price } = req.body;
+        const { supplierName, seedType, pricePerKg, quantity } = req.body;
 
-        // Create a new supply record
-        const newSupply = new Supply({ supplierId, seedType, quantity, price });
-        await newSupply.save();
-
-        // Update seed inventory
-        const inventory = await InventoryItem.findOne({ itemType: 'Seed', typeId: seedType });
-        if (inventory) {
-            inventory.quantity += quantity;
-            await inventory.save();
-        } else {
-            // Create a new inventory item if it doesn't exist
-            const newInventory = new InventoryItem({
-                itemType: 'Seed',
-                typeId: seedType,
-                quantity,
-            });
-            await newInventory.save();
+        // Validate fields
+        if (!supplierName || !seedType || !pricePerKg || !quantity) {
+            return res.status(400).json({ message: "All fields are required: supplierName, seedType, pricePerKg, and quantity." });
         }
 
-        res.status(201).json({ message: 'Supply added and inventory updated.', newSupply });
+        // Calculate totalAmount
+        const totalAmount = pricePerKg * quantity;
+
+        // Create a new supply
+        const newSupply = new Supply({
+            supplierName,
+            seedType,  // Make sure this is the _id of the SeedType document, not the string name
+            pricePerKg,
+            quantity,
+            totalAmount  // Include totalAmount in the Supply document
+        });
+
+        const savedSupply = await newSupply.save();
+        res.status(201).json({ message: "Supply added successfully", supply: savedSupply });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        console.error(error);
+        res.status(500).json({ message: "Error adding supply", error: error.message });
     }
 });
 
-// Get all supplies
-router.get('/', async (req, res) => {
+// Route to get all supplies
+router.get("/all-supplies", async (req, res) => {
     try {
-        const supplies = await Supply.find().populate('supplierId').populate('seedType');
+        const supplies = await Supply.find().populate("seedType");  // Populate seedType if you need to display the seed name
         res.status(200).json(supplies);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        console.error(error);
+        res.status(500).json({ message: "Error fetching supplies", error: error.message });
     }
 });
 
-// Delete supply
-router.delete('/:id', async (req, res) => {
+// Route to delete a supply
+router.delete("/delete-supply/:id", async (req, res) => {
     try {
-        const supply = await Supply.findByIdAndDelete(req.params.id);
-        if (!supply) return res.status(404).json({ message: 'Supply not found.' });
-        res.status(200).json({ message: 'Supply deleted.', supply });
+        const { id } = req.params;
+        const deletedSupply = await Supply.findByIdAndDelete(id);
+        
+        if (!deletedSupply) {
+            return res.status(404).json({ message: "Supply not found" });
+        }
+
+        res.status(200).json({ message: "Supply deleted successfully", supply: deletedSupply });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        console.error(error);
+        res.status(500).json({ message: "Error deleting supply", error: error.message });
     }
 });
+
+
+
 
 module.exports = router;

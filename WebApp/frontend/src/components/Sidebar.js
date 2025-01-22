@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { FaHome, FaUsers, FaClipboardList, FaCog, FaBars } from "react-icons/fa";
+import { FaHome, FaUsers, FaClipboardList, FaCog, FaBars, FaWarehouse } from "react-icons/fa";
 import "../css/Sidebar.css";
 
 const Sidebar = () => {
@@ -26,7 +26,7 @@ const Sidebar = () => {
               {!isCollapsed && <span>Dashboard</span>}
             </li>
           </NavLink>
-          <NavLink to="/SeedSeller" activeClassName="active-link">
+          <NavLink to="/addseller" activeClassName="active-link">
             <li className="menu-item">
               <FaUsers />
               {!isCollapsed && <span>Seed Seller Management</span>}
@@ -39,9 +39,9 @@ const Sidebar = () => {
             </li>
           </NavLink>
 
-          <NavLink to="/Supply" activeClassName="active-link">
+          <NavLink to="/allsupplies" activeClassName="active-link">
             <li className="menu-item">
-              <FaClipboardList />
+              <FaWarehouse />
               {!isCollapsed && <span>Supply Management</span>}
             </li>
           </NavLink>

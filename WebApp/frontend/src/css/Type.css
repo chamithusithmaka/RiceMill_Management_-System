@@ -1,0 +1,86 @@
+/* Employee Page Layout */
+.seed-container {
+    display: flex;
+    height: 100vh;
+    background-color: #f3f3f3; /* Light grey background for the overall page */
+}
+
+/* Content area (Header + Main Content) */
+.seed-content {
+    width: calc(100% - 250px); /* Adjust for Sidebar */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    
+}
+
+/* Main content styling */
+.seed-main-content {
+    flex: 1;
+    margin-left: 20px; /* Adjust this based on your sidebar width */
+    margin-top: 20px;  /* Adjust based on the header height */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+
+
+.add-type-form {
+    margin-bottom: 20px;
+}
+
+.add-type-form input {
+    padding: 10px;
+    margin-right: 10px;
+    width: 300px;
+}
+
+.add-type-form button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.add-type-form button:hover {
+    background-color: #45a049;
+}
+
+.view-types ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.view-types li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+}
+
+.view-types button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.view-types button:hover {
+    background-color: #e53935;
+}
+
+.error-message {
+    color: red;
+}
+
+.success-message {
+    color: green;
+}
+

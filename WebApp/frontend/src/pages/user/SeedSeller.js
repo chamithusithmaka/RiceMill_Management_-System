@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../../components/Sidebar";
+import Header from "../../components/SeedSeller/SeedSellerHeader";
 import "../../css/SeedSeller.css";
 
 function SeedSeller() {
